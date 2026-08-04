@@ -1,12 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { FabAdd } from './components/fab-add/fab-add';
+import { Cliente } from './types/cliente';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [FabAdd],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('lista-compras');
-}
+export class App {}
