@@ -1,0 +1,26 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>CPF</th>
+      <th>Data de Nascimento</th>
+      <th>UF</th>
+      <th>Município</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (cliente of this.listaClientes; track cliente.id) {
+      <tr>
+        <td>{{ cliente.id }}</td>
+        <td>{{ cliente.nome }}</td>
+        <td>{{ cliente.email }}</td>
+        <td>{{ cliente.cpf }}</td>
+        <td>{{ cliente.dataNascimento }}</td>
+        <td>{{ cliente.uf }}</td>
+        <td>{{ cliente.municipio }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

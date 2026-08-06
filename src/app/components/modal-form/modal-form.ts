@@ -1,5 +1,7 @@
-import { Component, ElementRef, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ClienteService } from '../../services/cliente';
+import { Cliente } from '../../types/cliente';
 
 @Component({
   selector: 'app-modal-form',
@@ -8,6 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './modal-form.css',
 })
 export class ModalForm {
+  private clienteService = inject(ClienteService);
   private dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialogElement');
 
   formData = {
@@ -28,9 +31,20 @@ export class ModalForm {
   }
 
   onSubmit(): void {
-    console.log('Dados cadastrados:', this.formData);
+    const novoCliente: Cliente = {
+      id: this.clienteService.listSize() + 1,
+      nome: this.formData.nome,
+      email: this.formData.email,
+      cpf: this.formData.cpf,
+      dataNascimento: this.formData.dataNascimento,
+      uf: this.formData.uf,
+      municipio: this.formData.municipio,
+    };
 
+    this.clienteService.adicionarCliente(novoCliente);
     this.closeModal();
+
+    this.clienteService.printClientes();
   }
 
   handleDialogClose(): void {

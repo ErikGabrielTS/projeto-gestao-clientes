@@ -1,10 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { FabAdd } from './components/fab-add/fab-add';
-import { Cliente } from './types/cliente';
+import { TabelaClientes } from './components/tabela-clientes/tabela-clientes';
 
 @Component({
   selector: 'app-root',
-  imports: [FabAdd],
+  imports: [FabAdd, TabelaClientes],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
