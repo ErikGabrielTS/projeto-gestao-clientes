@@ -15,3 +15,17 @@ th {
   background-color: #f4f4f4;
   font-weight: bold;
 }
+
+.actions {
+  display: flex;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.action {
+  cursor: pointer;
+}
+
+.action:hover {
+  opacity: 0.7;
+}

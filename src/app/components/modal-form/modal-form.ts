@@ -13,7 +13,9 @@ export class ModalForm {
   private clienteService = inject(ClienteService);
   private dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialogElement');
 
-  formData = {
+  isEdit = false;
+  formData: Cliente = {
+    id: '',
     nome: '',
     email: '',
     cpf: '',
@@ -28,28 +30,28 @@ export class ModalForm {
 
   closeModal(): void {
     this.dialog().nativeElement.close();
+    this.resetForm();
   }
 
   onSubmit(): void {
-    const novoCliente: Cliente = {
-      nome: this.formData.nome,
-      email: this.formData.email,
-      cpf: this.formData.cpf,
-      dataNascimento: this.formData.dataNascimento,
-      uf: this.formData.uf,
-      municipio: this.formData.municipio,
-    };
+    if (this.isEdit) {
+      this.clienteService.updateCliente(this.formData);
+    } else {
+      this.clienteService.createCliente(this.formData);
+    }
 
-    this.clienteService.createCliente(novoCliente);
     this.closeModal();
   }
 
-  handleDialogClose(): void {
-    this.resetForm();
+  onEdit(cliente: Cliente): void {
+    this.formData = { ...cliente };
+    this.isEdit = true;
+    this.openModal();
   }
 
   private resetForm(): void {
     this.formData = {
+      id: '',
       nome: '',
       email: '',
       cpf: '',
@@ -57,5 +59,7 @@ export class ModalForm {
       uf: '',
       municipio: '',
     };
+
+    this.isEdit = false;
   }
 }

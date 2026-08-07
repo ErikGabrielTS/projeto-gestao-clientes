@@ -31,4 +31,26 @@ export class ClienteService {
       console.error('Erro ao criar cliente:', error);
     }
   }
+
+  async updateCliente(updatedCliente: Cliente): Promise<void> {
+    try {
+      const response = await http.put<Cliente>(`/clientes/${updatedCliente.id}`, updatedCliente);
+
+      this.clientes.update((lista: Cliente[]) =>
+        lista.map((cliente) => (cliente.id === updatedCliente.id ? response.data : cliente)),
+      );
+    } catch (error) {
+      console.error('Erro ao atualizar cliente:', error);
+    }
+  }
+
+  async deleteCliente(id: string): Promise<void> {
+    try {
+      await http.delete(`/clientes/${id}`);
+
+      this.clientes.update((lista: Cliente[]) => lista.filter((cliente) => cliente.id !== id));
+    } catch (error) {
+      console.error('Erro ao excluir cliente:', error);
+    }
+  }
 }
