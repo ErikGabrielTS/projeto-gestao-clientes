@@ -1,25 +1,34 @@
 import { Injectable, signal } from '@angular/core';
+import { http } from '../core/http';
 import { Cliente } from '../types/cliente';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClienteService {
-  readonly listaClientes = signal<Cliente[]>([]);
+  clientes = signal<Cliente[]>([]);
+  loading = signal<boolean>(false);
 
-  adicionarCliente(novoCliente: Cliente) {
-    this.listaClientes.update((lista) => [...lista, novoCliente]);
+  async getClientes(): Promise<void> {
+    this.loading.set(true);
+
+    try {
+      const response = await http.get<Cliente[]>('/clientes');
+      this.clientes.set(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar clientes:', error);
+    } finally {
+      this.loading.set(false);
+    }
   }
 
-  listSize(): number {
-    return this.listaClientes().length;
-  }
+  async createCliente(newCliente: Partial<Cliente>): Promise<void> {
+    try {
+      const response = await http.post<Cliente>('/clientes', newCliente);
 
-  printClientes(): void {
-    console.log(this.listaClientes());
-  }
-
-  getClientes(): Cliente[] {
-    return this.listaClientes();
+      this.clientes.update((lista: Cliente[]) => [...lista, response.data]);
+    } catch (error) {
+      console.error('Erro ao criar cliente:', error);
+    }
   }
 }

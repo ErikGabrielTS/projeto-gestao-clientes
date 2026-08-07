@@ -1,0 +1,17 @@
+.container-home {
+  width: 70%;
+  height: 800px;
+  margin: 20px auto;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5em;
+
+  border: 2px solid black;
+}
+
+.title strong {
+  color: red;
+  font-weight: bold;
+}

@@ -1,26 +1,30 @@
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>CPF</th>
-      <th>Data de Nascimento</th>
-      <th>UF</th>
-      <th>Município</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (cliente of this.listaClientes; track cliente.id) {
+@if (loading()) {
+  <p>Carregando clientes...</p>
+} @else {
+  <table>
+    <thead>
       <tr>
-        <td>{{ cliente.id }}</td>
-        <td>{{ cliente.nome }}</td>
-        <td>{{ cliente.email }}</td>
-        <td>{{ cliente.cpf }}</td>
-        <td>{{ cliente.dataNascimento }}</td>
-        <td>{{ cliente.uf }}</td>
-        <td>{{ cliente.municipio }}</td>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Data de Nascimento</th>
+        <th>Email</th>
       </tr>
-    }
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      @for (cliente of clientes(); track cliente.id) {
+        <tr>
+          <td>{{ cliente.nome }}</td>
+          <td>{{ cliente.cpf }}</td>
+          <td>{{ cliente.dataNascimento }}</td>
+          <td>{{ cliente.email }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="7">Nenhum cliente encontrado.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+<app-fab-add></app-fab-add>

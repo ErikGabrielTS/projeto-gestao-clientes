@@ -32,7 +32,6 @@ export class ModalForm {
 
   onSubmit(): void {
     const novoCliente: Cliente = {
-      id: this.clienteService.listSize() + 1,
       nome: this.formData.nome,
       email: this.formData.email,
       cpf: this.formData.cpf,
@@ -41,10 +40,8 @@ export class ModalForm {
       municipio: this.formData.municipio,
     };
 
-    this.clienteService.adicionarCliente(novoCliente);
+    this.clienteService.createCliente(novoCliente);
     this.closeModal();
-
-    this.clienteService.printClientes();
   }
 
   handleDialogClose(): void {

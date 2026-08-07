@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FabAdd } from './components/fab-add/fab-add';
-import { TabelaClientes } from './components/tabela-clientes/tabela-clientes';
+import { NavBar } from './components/nav-bar/nav-bar';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [FabAdd, TabelaClientes],
+  imports: [NavBar, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
