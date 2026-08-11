@@ -34,18 +34,28 @@
       <div class="form-group">
         <label for="uf">UF</label>
 
-        <input type="text" id="uf" name="uf" [(ngModel)]="formData.uf" maxlength="2" required />
+        <select
+          id="uf"
+          name="uf"
+          [(ngModel)]="formData.uf"
+          (change)="loadMunicipios(formData.uf?.id ?? undefined)"
+          required
+        >
+          <option [ngValue]="null" selected disabled>Selecione</option>
+          @for (estado of estados; track estado.id) {
+            <option [ngValue]="estado">{{ estado.sigla }}</option>
+          }
+        </select>
       </div>
 
       <div class="form-group">
         <label for="municipio">Município</label>
-        <input
-          type="text"
-          id="municipio"
-          name="municipio"
-          [(ngModel)]="formData.municipio"
-          required
-        />
+        <select id="municipio" name="municipio" [(ngModel)]="formData.municipio" required>
+          <option [ngValue]="null" selected disabled>Selecione</option>
+          @for (municipio of municipios; track municipio.id) {
+            <option [ngValue]="municipio">{{ municipio.nome }}</option>
+          }
+        </select>
       </div>
     </div>
 

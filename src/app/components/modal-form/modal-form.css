@@ -14,7 +14,8 @@ dialog {
   margin-bottom: 12px;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
